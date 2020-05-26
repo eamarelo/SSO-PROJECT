@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import FacebookLogin from 'react-facebook-login';
 import { GoogleLogin } from 'react-google-login';
+import GitHubLogin from 'react-github-login';
 import LoggedIn from '../LoggedIn'
 import './style.css'
 
@@ -32,6 +33,18 @@ class LoginPage extends Component {
         this.setState({ user: { profile: response, loggedIn: true } })
     }
 
+    onSuccessGithub = (response) => {
+        console.log("----------", response)
+        localStorage.setItem('user', JSON.stringify(response))
+        this.setState({ user: { profile: response, loggedIn: true } })
+        window.location.reload(false);
+    }
+
+
+    onFailureGithub = (response) => {
+        console.log("----------", response)
+    }
+
     logOut = () => {
         this.setState({
             user: {
@@ -43,6 +56,8 @@ class LoginPage extends Component {
 
     responseGoogle = (response) => {
         console.log(response);
+        localStorage.setItem('user', JSON.stringify(response))
+        this.setState({ user: { profile: response, loggedIn: true } })
     }
 
     render() {
@@ -98,6 +113,9 @@ class LoginPage extends Component {
                     onFailure={this.responseGoogle}
                     cookiePolicy={'single_host_origin'}
                 />,
+                  <GitHubLogin clientId="5e047d19e55efeb76669"
+                    onSuccess={this.onSuccessGithub}
+                    onFailure={this.onFailureGithub} />,
             </div>
         </div >)
     }
