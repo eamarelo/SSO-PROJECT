@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
 import LoggedIn from '../LoggedIn'
 import './style.css'
 
 class LoginPage extends Component {
     constructor(props) {
         super(props)
-        const userCookie = (localStorage.getItem('user') === 'undefined' || localStorage.getItem('user') === undefined )? {
+        const userCookie = (localStorage.getItem('user') === 'undefined' || localStorage.getItem('user') === undefined) ? {
             user: {
                 profile: undefined,
                 loggedIn: false
@@ -38,6 +39,10 @@ class LoginPage extends Component {
                 loggedIn: false
             }
         })
+    }
+
+    responseGoogle = (response) => {
+        console.log(response);
     }
 
     render() {
@@ -86,6 +91,13 @@ class LoginPage extends Component {
                         callback={this.responseFacebook}
                     />
                 </div>
+                <GoogleLogin
+                    clientId="656892878336-0ie79puot0gp7l734mk7nd3llb1ml66l.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={this.responseGoogle}
+                    onFailure={this.responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />,
             </div>
         </div >)
     }
