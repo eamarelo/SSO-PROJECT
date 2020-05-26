@@ -8,6 +8,11 @@ class LoggedIn extends Component {
 
     render() {
         const { user, logOut } = this.props
+        if (!user) {
+            return (
+                <button className="button_submit" type="submit" onClick={logOut}>Log out</button>
+            )
+        }
         return (
             <div className="form__container">
                 <div className="form__content form__content--logout">

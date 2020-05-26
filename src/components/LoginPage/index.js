@@ -6,7 +6,7 @@ import './style.css'
 class LoginPage extends Component {
     constructor(props) {
         super(props)
-        const userCookie = localStorage.getItem('user') === 'undefined' ? {
+        const userCookie = (localStorage.getItem('user') === 'undefined' || localStorage.getItem('user') === undefined )? {
             user: {
                 profile: undefined,
                 loggedIn: false
